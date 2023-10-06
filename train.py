@@ -4,6 +4,8 @@ def train(data):
     import joblib
     from sklearn.pipeline import Pipeline
     from sklearn.metrics import mean_squared_error
+    import datetime
+
     # data.to_csv('file1.csv')
     # 1.- Data Preparation
     train_df=pd.DataFrame()
@@ -35,15 +37,16 @@ def train(data):
     # 3.- Train data
     clf=regressor.fit(x_train, y_train)
 
-    # 4.- Save the trained model to storage using joblib
-    model_filename = 'random_forest_model.pkl'
-    joblib.dump(clf, model_filename)
+    # Generate a timestamp to create a unique blob name
+    timestamp = datetime.datetime.now().strftime('%Y%m%d%H%M%S')
 
+    # 4.- Save the trained model to storage using joblib
+    model_filename = str(timestamp) +'_random_forest_model.pkl'
+    joblib.dump(clf, model_filename)
 
     y_pred = regressor.predict(x_test)
     y_pred = pd.DataFrame(y_pred)
 
-    
     print("mean_squared_error: ",mean_squared_error(y_train,regressor.predict(x_train)))
 
     return(model_filename)
