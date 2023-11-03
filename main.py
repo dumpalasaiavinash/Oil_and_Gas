@@ -12,7 +12,7 @@ connection_string = "DefaultEndpointsProtocol=https;AccountName=storageavinash;A
 # get the data to train from azure storage
 data = get_data(storage_account_name,storage_account_key,data_container_name,connection_string)
 # Send data to train function
-model_path = train(data)
+model_path,x_test = train(data)
 # uploading the model to azure storage
 upload_model(model_path,storage_account_name,storage_account_key,models_container_name,connection_string)
 
